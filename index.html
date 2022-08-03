@@ -21,7 +21,12 @@
 <body>
 
   <h2>static</h2>
-  <img  class="gmap" src="https://maps.googleapis.com/maps/api/staticmap?zoom=12&center=37.3861,-122.0839&size=540x300&key=AIzaSyDvxxKvshRHZOnEaUGb_V9t3aIjOUVIDWw">
+  <img src="https://maps.googleapis.com/maps/api/staticmap?zoom=12&center=37.3861,-122.0839&size=540x300&key=AIzaSyDvxxKvshRHZOnEaUGb_V9t3aIjOUVIDWw">
+
+  <h2> customelem</h2>
+  <lite-googlemaps>
+    <img src="https://maps.googleapis.com/maps/api/staticmap?zoom=12&center=37.3861,-122.0839&size=540x300&key=AIzaSyDvxxKvshRHZOnEaUGb_V9t3aIjOUVIDWw">
+  </lite-googlemaps>
 
 
   <h2>embed</h2>
@@ -32,18 +37,22 @@
 
 
   <script>
-    
-    for (const staticmap of document.querySelectorAll('img[src*=staticmap]')) {
-      // staticmap
-      const iframe = document.createElement('iframe');
-      iframe.style.border = 0;
-      iframe.loading = 'lazy';
-      iframe.allowFullscreen = true;
-      iframe.src = `https://www.google.com/maps/embed/v1/view?zoom=12&center=37.3861,-122.0839&key=AIzaSyDvxxKvshRHZOnEaUGb_V9t3aIjOUVIDWw`;
+    class LiteGMEmbed extends HTMLElement {
+      connectedCallback() {
+          
+        this.addIframe();
+      }
+      addIframe() {
+          const iframe = document.createElement('iframe');
+          iframe.style.border = 0;
+          iframe.loading = 'lazy';
+          iframe.allowFullscreen = true;
+          iframe.src = `https://www.google.com/maps/embed/v1/view?zoom=12&center=37.3861,-122.0839&key=AIzaSyDvxxKvshRHZOnEaUGb_V9t3aIjOUVIDWw`;
 
-
-      staticmap.parentNode.insertBefore(iframe, staticmap.nextSibling);
+          this.parentNode.insertBefore(iframe, this.nextSibling);
+      }
     }
+    customElements.define('lite-googlemaps', LiteGMEmbed);
   </script>
 
   <!-- <h2>js api</h2>
