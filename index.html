@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>lite-googlemaps-embed</title>
+
+
+  <style>
+    .gmap, iframe {
+      width: 540px;
+      height: 300px;
+    }
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>static</h2>
+  <img  class="gmap" src="https://maps.googleapis.com/maps/api/staticmap?zoom=12&center=37.3861,-122.0839&size=540x300&key=AIzaSyDvxxKvshRHZOnEaUGb_V9t3aIjOUVIDWw">
+
+
+  <h2>embed</h2>
+  <iframe 
+    class="gmap" style="border:0" loading="lazy" allowfullscreen 
+    src="https://www.google.com/maps/embed/v1/view?zoom=12&center=37.3861,-122.0839&key=AIzaSyDvxxKvshRHZOnEaUGb_V9t3aIjOUVIDWw">
+  </iframe>
+
+
+  <script>
+    
+    for (const staticmap of document.querySelectorAll('img[src*=staticmap]')) {
+      // staticmap
+      const iframe = document.createElement('iframe');
+      iframe.style.border = 0;
+      iframe.loading = 'lazy';
+      iframe.allowFullscreen = true;
+      iframe.src = `https://www.google.com/maps/embed/v1/view?zoom=12&center=37.3861,-122.0839&key=AIzaSyDvxxKvshRHZOnEaUGb_V9t3aIjOUVIDWw`;
+
+
+      staticmap.parentNode.insertBefore(iframe, staticmap.nextSibling);
+    }
+  </script>
+
+  <!-- <h2>js api</h2>
+  <div id="map" class="gmap"></div>
+  <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDvxxKvshRHZOnEaUGb_V9t3aIjOUVIDWw&callback=initMap"></script>
+
+  <script>
+    function initMap() {
+      map = new google.maps.Map(document.getElementById("map"), {
+          center: { lat: -34.397, lng: 150.644 },
+          zoom: 8,
+        });
+    }
+  </script> -->
+
+</body>
+</html>
