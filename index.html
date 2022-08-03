@@ -20,39 +20,111 @@
 </head>
 <body>
 
-  <h2>static</h2>
-  <img src="https://maps.googleapis.com/maps/api/staticmap?zoom=12&center=37.3861,-122.0839&size=540x300&key=AIzaSyDvxxKvshRHZOnEaUGb_V9t3aIjOUVIDWw">
+  <!-- <h2>static</h2>
+  <img src="https://maps.googleapis.com/maps/api/staticmap?zoom=12&center=37.3861,-122.0839&size=540x300&key=AIzaSyDvxxKvshRHZOnEaUGb_V9t3aIjOUVIDWw"> -->
 
-  <h2> customelem</h2>
+  <h2><code>lite-googlemaps</code></h2>
+
   <lite-googlemaps>
     <img src="https://maps.googleapis.com/maps/api/staticmap?zoom=12&center=37.3861,-122.0839&size=540x300&key=AIzaSyDvxxKvshRHZOnEaUGb_V9t3aIjOUVIDWw">
   </lite-googlemaps>
 
 
-  <h2>embed</h2>
+  <!-- <h2>embed</h2>
   <iframe 
     class="gmap" style="border:0" loading="lazy" allowfullscreen 
     src="https://www.google.com/maps/embed/v1/view?zoom=12&center=37.3861,-122.0839&key=AIzaSyDvxxKvshRHZOnEaUGb_V9t3aIjOUVIDWw">
-  </iframe>
+  </iframe> -->
 
 
+  <style>
+    lite-googlemaps {
+      position: relative;
+      display: block;
+      contain: content;
+      cursor: wait;
+      max-width: 540px;
+  }
+  lite-googlemaps > img {
+      cursor: wait;
+  }
+  lite-googlemaps > iframe {
+    visibility: hidden;  
+    /* https://github.com/paulirish/lite-youtube-embed/blob/master/src/lite-yt-embed.css#L35 */
+    width: 100%; 
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border: 0;
+  }
+  </style>
   <script>
     class LiteGMEmbed extends HTMLElement {
       connectedCallback() {
-          
-        this.addIframe();
-      }
-      addIframe() {
-          const iframe = document.createElement('iframe');
-          iframe.style.border = 0;
-          iframe.loading = 'lazy';
-          iframe.allowFullscreen = true;
-          iframe.src = `https://www.google.com/maps/embed/v1/view?zoom=12&center=37.3861,-122.0839&key=AIzaSyDvxxKvshRHZOnEaUGb_V9t3aIjOUVIDWw`;
+        this.staticImg = this.querySelector('img');
+        console.assert(this.staticImg && this.staticImg.parentNode === this);
 
-          this.parentNode.insertBefore(iframe, this.nextSibling);
+
+
+        // On hover (or tap), warm up the TCP connections we're (likely) about to use.
+        LiteGMEmbed.warmConnections();
+
+        // Load only on input
+        this.addEventListener('pointerover', _ => {
+          this.addIframe();
+        }, {once: true});
+
+      }
+
+    /**
+     * Begin pre-connecting to warm up the iframe load
+     * Since the embed's network requests load within its iframe,
+     *   preload/prefetch'ing them outside the iframe will only cause double-downloads.
+     * So, the best we can do is warm up a few connections to origins that are in the critical path.
+     */
+    static warmConnections() {
+        if (LiteGMEmbed.preconnected) return;
+        
+        for (const domain of ['https://maps.googleapis.com', 'https://www.google.com', 'https://maps.gstatic.com']) {
+          const linkEl = document.createElement('link');
+          linkEl.rel = 'preconnect';
+          linkEl.href = domain;
+          document.head.append(linkEl);
+        }
+
+        LiteGMEmbed.preconnected = true;
+    }
+
+
+      addIframe() {
+
+        const iframe = document.createElement('iframe');
+        iframe.loading = 'lazy';
+        iframe.allowFullscreen = true;
+        iframe.src = `https://www.google.com/maps/embed/v1/view?zoom=12&center=37.3861,-122.0839&key=AIzaSyDvxxKvshRHZOnEaUGb_V9t3aIjOUVIDWw`;
+        this.iframe = iframe;
+
+        const img = this.staticImg;
+        performance.mark('iframestart');
+        img.parentNode.insertBefore(iframe, img.nextSibling);
+
+        iframe.onload = _ => {
+          this.iframeLoaded();
+          performance.mark('iframeend');
+          performance.measure('iframe', 'iframestart', 'iframeend');
+
+        }
+      }
+      iframeLoaded() {
+        // Onload fires for the iframe earlier than it's actually done.
+        // So we'll just visually put the iframe directly on top of the static image
+        this.iframe.style.visibility = 'visible';
       }
     }
     customElements.define('lite-googlemaps', LiteGMEmbed);
+
+    //# sourceURL=litegm.js
   </script>
 
   <!-- <h2>js api</h2>
