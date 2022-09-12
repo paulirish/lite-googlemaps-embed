@@ -1,0 +1,15 @@
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+
+/* todo: make more specific, probably */
+.gmap,
+iframe {
+  width: 540px; /* todo: resolve with max-width in lgme.css */
+  height: 300px;
+}

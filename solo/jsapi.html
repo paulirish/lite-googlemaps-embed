@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>javascript api demo | lite-googlemaps-embed</title>
+    <link rel="stylesheet" href="../src/global.css">
+  </head>
+  <body>
+
+
+<h2>js api</h2>
+<div id="map" class="gmap"></div>
+<script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDvxxKvshRHZOnEaUGb_V9t3aIjOUVIDWw&callback=initMap"></script>
+
+<script>
+  function initMap() {
+    map = new google.maps.Map(document.getElementById("map"), {
+        center: { lat: 37.3861, lng: -122.0839 },
+        zoom: 12,
+      });
+  }
+</script>
+
+<br>
+<a href="https://developers.google.com/maps/documentation/javascript">Maps JavaScript API docs</a>.
+

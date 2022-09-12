@@ -1,33 +1,21 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>lite-googlemaps-embed</title>
 
-    <style>
-      .gmap,
-      iframe {
-        width: 620px;
-        height: 200px;
-      }
-      html,
-      body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-      }
-    </style>
+    <link rel="stylesheet" href="./src/global.css">
     <link rel="stylesheet" href="./src/lite-googlemaps-embed.css">
   </head>
   <body>
 
-    <h2><code>lite-googlemaps</code></h2>
+    <h2><code>lite-googlemaps-embed</code></h2>
 
     <p>Uses <a href="https://developers.google.com/maps/documentation/maps-static/overview">Maps Static API</a> to start, 
     loads in the <a href="https://developers.google.com/maps/documentation/embed/get-started">Maps Embed API</a> on interaction.</p>
 
-    
+
     <lite-googlemaps>
       <img
         src="https://maps.googleapis.com/maps/api/staticmap?zoom=12&center=37.3861,-122.0839&size=540x300&key=AIzaSyDvxxKvshRHZOnEaUGb_V9t3aIjOUVIDWw"
@@ -38,34 +26,26 @@
     <script src="./src/lite-googlemaps-embed.js"></script>
 
 
-    <!-- <h2>static</h2>
-  <img src="https://maps.googleapis.com/maps/api/staticmap?zoom=12&center=37.3861,-122.0839&size=540x300&key=AIzaSyDvxxKvshRHZOnEaUGb_V9t3aIjOUVIDWw"> -->
+    <h4>Test pages:</h4>
+    <ul>
+      <li><a href="./solo/embed.html">Typical Maps Embed API usage</a>
+      <li><a href="./solo/jsapi.html">Typical Maps JavaScript API usage</a>
+      <li><a href="./solo/static.html">Typical Maps Static API usage</a>
+      <li><a href="./solo/lite.html">this fancy lil lite facade component</a>
+
+    </ul></li>
+    
+
+    <h4>Notes</h4>
+    <p>Embed API is free to use. Static API costs money, despite being less capable. (Seems weird, but oh well)</p>
+    <p>The static API doesn't visually match the basemap that is used for Embed API. (not cool) There's a private api for a static image that does and that image is preloaded within the embed iframe, prior to the map tiles. (cool)</p>
 
 
-    <!-- <h2>js api</h2>
-  <div id="map" class="gmap"></div>
-  <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDvxxKvshRHZOnEaUGb_V9t3aIjOUVIDWw&callback=initMap"></script>
 
-  <script>
-    function initMap() {
-      map = new google.maps.Map(document.getElementById("map"), {
-          center: { lat: 37.3861, lng: -122.0839 },
-          zoom: 12,
-        });
-    }
-  </script> -->
-<!-- 
-    <h2>embed</h2>
-  <iframe 
-    class="gmap" style="border:0" loading="lazy" allowfullscreen 
-    src="https://www.google.com/maps/embed/v1/view?zoom=12&center=37.3861,-122.0839&key=AIzaSyDvxxKvshRHZOnEaUGb_V9t3aIjOUVIDWw">
-  </iframe> -->
-
-
-<!-- 
-  <h2>StaticMapService.GetMapImage</h2>
-  <img src="https://maps.googleapis.com/maps/api/js/StaticMapService.GetMapImage?1m2&1i168423&2i406574&2e1&3u12&4m2&1u540&2u304&5m6&1e0&5sen-US&6sus&10b1&12b1&14i1379903&client=google-maps-embed&token=113849&k">
- -->
+  <!-- 
+    <h2>StaticMapService.GetMapImage</h2>
+    <img src="https://maps.googleapis.com/maps/api/js/StaticMapService.GetMapImage?1m2&1i168423&2i406574&2e1&3u12&4m2&1u540&2u304&5m6&1e0&5sen-US&6sus&10b1&12b1&14i1379903&client=google-maps-embed&token=113849&k">
+  -->
 
   </body>
 </html>
