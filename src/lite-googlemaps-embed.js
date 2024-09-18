@@ -1,6 +1,7 @@
 
 // todo: tabbability?
 
+// Most of the impl was stolen from paulirish/lite-youtube-embed
 class LiteGMEmbed extends HTMLElement {
   connectedCallback() {
     this.staticImg = this.querySelector('img');
