@@ -15,27 +15,13 @@
     <p>Uses <a href="https://developers.google.com/maps/documentation/maps-static/overview">Maps Static API</a> to start, 
     loads in the <a href="https://developers.google.com/maps/documentation/embed/get-started">Maps Embed API</a> on interaction.</p>
 
-    <button type=button>load the demo - click this please (sorry)</button>
-    <script>
-      const button = document.querySelector('button');
-      button.addEventListener('click', loaddemo);
-      function loaddemo(e) {
-        e.preventDefault();
-        const result = window.prompt('Sorry had to do this because static API costs. Type "cool" in here pretty please the demo will load.')
-        if (result.trim() != 'cool') return;
-        const thing = document.querySelector('template').content;
-        button.parentNode.insertBefore(thing, button);
-        button.hidden = true;
-      }
-    </script>
-    
-    <template>
+
     <lite-googlemaps>
       <img
         src="https://maps.googleapis.com/maps/api/staticmap?zoom=12&center=37.3861,-122.0839&size=540x300&key=AIzaSyDvxxKvshRHZOnEaUGb_V9t3aIjOUVIDWw"
       />
     </lite-googlemaps>
-    </template>
+
 
     <script src="./src/lite-googlemaps-embed.js"></script>
 
@@ -45,8 +31,7 @@
       <li><a href="./solo/embed.html">Typical Maps Embed API usage</a>
       <li><a href="./solo/jsapi.html">Typical Maps JavaScript API usage</a>
       <li><a href="./solo/static.html">Typical Maps Static API usage</a>
-      <!-- this is still there but just hidden from crawlers --
-      <!-- <li><a href="./solo/lite.html">this fancy lil lite facade component</a> <small>(same as above)</small>  -->
+      <li><a href="./solo/lite.html">this fancy lil lite facade component</a> <small>(same as above)</small>
 
     </ul></li>
     
